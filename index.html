@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hijri — Sebuah Ruang Kecil</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== LOADING ========== -->
+  <div id="loading" class="loading">
+    <div class="loading-content">
+      <p class="loading-label">HIJRI & FADLAN · EST. 2025</p>
+      <div class="loading-bar"><div class="loading-fill" id="loadingFill"></div></div>
+      <p class="loading-percent" id="loadingPercent">0%</p>
+      <p class="loading-joke" id="loadingJoke"></p>
+      <button id="btnMasuk" class="btn-masuk hidden">Masuk →</button>
+    </div>
+  </div>
+
+  <!-- ========== NOTIF PALSU ========== -->
+  <div id="fakeNotif" class="fake-notif hidden">
+    <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=wonyoung&backgroundColor=ffd5dc" alt="avatar" class="fake-notif-avatar" />
+    <div class="fake-notif-body">
+      <b id="fakeNotifName">Wonyoung versi Hijri 💕</b>
+      <p id="fakeNotifText">Hai sayang...</p>
+    </div>
+  </div>
+
+  <!-- ========== MUSIC ========== -->
+  <audio id="bgMusic" loop><source src="lagu.mp3" /></audio>
+  <button id="musicToggle" class="music-btn" title="Play music">
+    <span class="music-icon">♪</span>
+  </button>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="nav-brand">H · F</span>
+      <div class="nav-links">
+        <a href="#wonyoung">Rahasia</a>
+        <a href="#counter">Hitung</a>
+        <a href="#story">Alasan</a>
+        <a href="#videos">Video</a>
+        <a href="#chat">Chat</a>
+        <a href="#letter">Surat</a>
+      </div>
+      <button id="themeToggle" class="theme-btn-nav" title="Dark mode">
+        <span class="theme-icon">◐</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow" data-reveal>SEJAK 17.12.2025</p>
+      <h1 class="hero-title" data-reveal data-delay="1">
+        Sebuah ruang kecil<br>
+        untuk <em>Hijri</em>.
+      </h1>
+      <p class="hero-sub" data-reveal data-delay="2" id="sapaanWaktu">
+        Selamat datang kembali, sayang.
+      </p>
+      <button id="btnMasukHero" class="btn-hero btn-kabur-hero" data-reveal data-delay="3">
+        <span class="btn-hero-text">Buka kenangan</span>
+        <span class="arrow">→</span>
+      </button>
+      <p class="hero-hint" data-reveal data-delay="4">
+        <em>Psst — jangan skip ya. Nanti mas tau 😌</em>
+      </p>
+    </div>
+    <div class="hero-scroll">scroll ↓</div>
+  </section>
+
+  <!-- ========== WONYOUNG SECTION ========== -->
+  <section class="wonyoung-section" id="wonyoung">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>FYI</p>
+      <h2 class="section-heading" data-reveal data-delay="1">
+        Aku tau kamu suka <em>Wonyoung</em>.
+      </h2>
+      <p class="section-sub" data-reveal data-delay="2">
+        Coba deketin kursor ke fotonya. Ada rahasia. 👀
+      </p>
+
+      <div class="interactive-card" data-reveal data-delay="3">
+        
+        <div class="blink-portrait" id="blinkPortrait">
+          <img 
+            src="wonyoung.png" 
+            alt="Wonyoung" 
+            class="blink-photo blink-photo-base"
+            onerror="this.src='https://api.dicebear.com/7.x/thumbs/svg?seed=wonyoung&backgroundColor=ffd5dc'"
+          />
+          
+          <img 
+            src="hijri.png" 
+            alt="Hijri" 
+            class="blink-photo blink-photo-secret"
+            onerror="this.src='https://api.dicebear.com/7.x/thumbs/svg?seed=hijri&backgroundColor=ffd5dc'"
+          />
+
+          <!-- Soft overlay untuk transisi -->
+          <div class="soft-overlay"></div>
+
+          <!-- Sparkle container -->
+          <div class="sparkle-container" id="sparkleContainer"></div>
+
+          <!-- Hint badge -->
+          <div class="blink-badge" id="blinkBadge">
+            <span class="badge-dot"></span>
+            <span>Deketin kursor</span>
+          </div>
+        </div>
+
+        <p class="blink-caption" id="blinkCaption">
+          Yang ini idol. Cantik ya?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COUNTER ========== -->
+  <section class="counter-section" id="counter">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>SEJAK HARI ITU</p>
+      <h2 class="section-heading" data-reveal data-delay="1">
+        Kita udah <em>bareng</em> selama —
+      </h2>
+      <div class="counter-grid">
+        <div class="counter-item" data-reveal>
+          <span class="counter-num" id="hari">0</span>
+          <span class="counter-label">hari</span>
+        </div>
+        <div class="counter-item" data-reveal data-delay="1">
+          <span class="counter-num" id="jam">00</span>
+          <span class="counter-label">jam</span>
+        </div>
+        <div class="counter-item" data-reveal data-delay="2">
+          <span class="counter-num" id="menit">00</span>
+          <span class="counter-label">menit</span>
+        </div>
+        <div class="counter-item" data-reveal data-delay="3">
+          <span class="counter-num" id="detik">00</span>
+          <span class="counter-label">detik</span>
+        </div>
+      </div>
+      <p class="counter-note" data-reveal data-delay="4">
+        Setara dengan <b id="mie">0</b> porsi mie ayam, 
+        <b id="lagu">0</b> lagu Spotify, 
+        <b id="kangen">0</b> kali kamu kangen mas <em>(sok tau)</em>,
+        dan <b id="ketawa">0</b> kali mas nahan ketawa gara-gara kamu.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== STORY ========== -->
+  <section class="story-section" id="story">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>ALASAN</p>
+      <h2 class="section-heading" data-reveal data-delay="1">
+        Kenapa Mas <em>masih</em> kamu.
+      </h2>
+      <p class="section-sub" data-reveal data-delay="2">
+        Klik satu-satu ya, jangan setengah-setengah.
+      </p>
+      <div class="story-grid" id="reasonsGrid"></div>
+      <p class="story-hint" data-reveal>
+        <em>Ada 9. Ketemu semua berarti kamu penasaran. Gemes.</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== VIDEOS ========== -->
+  <section class="videos-section" id="videos">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>ARSIP</p>
+      <h2 class="section-heading" data-reveal data-delay="1">
+        Momen yang <em>terekam</em>.
+      </h2>
+      <p class="section-sub" data-reveal data-delay="2">
+        Klik buat putar. Volume on ya, biar afdol.
+      </p>
+      <div class="video-grid">
+        <div class="video-item" data-reveal>
+          <div class="video-frame">
+            <video src="video1.mp4" poster="thumb1.JPEG" preload="metadata" playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'video-empty\'>Video 1<br><small>taruh video1.mp4</small></div>'"></video>
+            <button class="play-btn" aria-label="Play">▶</button>
+          </div>
+          <p class="video-meta">01 — Momen paling gak penting</p>
+        </div>
+
+        <div class="video-item" data-reveal data-delay="1">
+          <div class="video-frame">
+            <video src="video2.mp4" poster="thumb2.JPEG" preload="metadata" playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'video-empty\'>Video 2<br><small>taruh video2.mp4</small></div>'"></video>
+            <button class="play-btn" aria-label="Play">▶</button>
+          </div>
+          <p class="video-meta">02 — Kamu ketawa, Mas yang baper</p>
+        </div>
+
+        <div class="video-item" data-reveal data-delay="2">
+          <div class="video-frame">
+            <video src="video3.mp4" poster="thumb3.JPEG" preload="metadata" playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'video-empty\'>Video 3<br><small>taruh video3.mp4</small></div>'"></video>
+            <button class="play-btn" aria-label="Play">▶</button>
+          </div>
+          <p class="video-meta">03 — Mas salah, tapi gak ngaku</p>
+        </div>
+
+        <div class="video-item" data-reveal data-delay="3">
+          <div class="video-frame">
+            <video src="video4.mp4" poster="thumb4.JPEG" preload="metadata" playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'video-empty\'>Video 4<br><small>taruh video4.mp4</small></div>'"></video>
+            <button class="play-btn" aria-label="Play">▶</button>
+          </div>
+          <p class="video-meta">04 — Kamu lucu, mas gak bisa bohong</p>
+        </div>
+
+        <div class="video-item" data-reveal data-delay="4">
+          <div class="video-frame">
+            <video src="video5.mp4" poster="thumb5.JPEG" preload="metadata" playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'video-empty\'>Video 5<br><small>taruh video5.mp4</small></div>'"></video>
+            <button class="play-btn" aria-label="Play">▶</button>
+          </div>
+          <p class="video-meta">05 — Momen yang mas replay terus</p>
+        </div>
+
+        <div class="video-item" data-reveal data-delay="5">
+          <div class="video-frame">
+            <video src="video6.mp4" poster="thumb6.JPEG" preload="metadata" playsinline
+              onerror="this.parentElement.innerHTML='<div class=\'video-empty\'>Video 6<br><small>taruh video6.mp4</small></div>'"></video>
+            <button class="play-btn" aria-label="Play">▶</button>
+          </div>
+          <p class="video-meta">06 — Kamu cantik, ini buktinya</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CHAT ========== -->
+  <section class="chat-section" id="chat">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>INTERAKTIF</p>
+      <h2 class="section-heading" data-reveal data-delay="1">
+        Ngobrol sama mas <em>yuk</em>.
+      </h2>
+      <p class="section-sub" data-reveal data-delay="2">
+        Ketik apa aja. Mas jawab. Beneran.
+      </p>
+      <div class="chat-box" id="chatBox" data-reveal data-delay="3">
+        <div class="chat-bubble chat-bot">
+          <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=wonyoung&backgroundColor=ffd5dc" alt="avatar" class="chat-avatar" />
+          <span>Hai Hijri! Lagi ngapain? 👀</span>
+        </div>
+        <div class="chat-typing hidden" id="chatTyping">
+          <img src="https://api.dicebear.com/7.x/thumbs/svg?seed=wonyoung&backgroundColor=ffd5dc" class="chat-avatar" />
+          <span class="typing-dots"><i></i><i></i><i></i></span>
+        </div>
+      </div>
+      <div class="chat-input-wrap" data-reveal data-delay="4">
+        <input type="text" id="chatInput" placeholder="Ketik sesuatu..." />
+        <button id="chatSend">Kirim →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LETTER ========== -->
+  <section class="letter-section" id="letter">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>SURAT</p>
+      <h2 class="section-heading" data-reveal data-delay="1">
+        Untuk kamu, dari aku.
+      </h2>
+      <p class="section-sub" data-reveal data-delay="2">
+        Baca pelan-pelan ya. Gak usah buru-buru.
+      </p>
+      <div class="letter-card" data-reveal data-delay="3">
+        <div class="letter-seal"></div>
+        <p class="letter-text" id="letterText"></p>
+        <p class="letter-sign">— Fadlan</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FINAL ========== -->
+  <section class="final-section">
+    <div class="container">
+      <p class="section-eyebrow" data-reveal>SEBELUM KELUAR</p>
+      <h2 class="final-title" data-reveal data-delay="1">
+        Mas sayang kamu, <em>Hijri</em>.
+      </h2>
+      <p class="final-sub" data-reveal data-delay="2">
+        Sampai kapanpun. Itu janji.
+      </p>
+      <div class="final-buttons" data-reveal data-delay="3">
+        <button id="btnSurprise" class="btn-final">
+          <span>Buka satu lagi</span>
+          <span class="arrow">→</span>
+        </button>
+        <button id="btnNgambek" class="btn-secondary">
+          Aku lagi ngambek 😤
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span>H · F</span>
+      <span>17 · 12 · 2025 — ∞</span>
+      <span>Made by Fadlan, dengan susah payah 💅</span>
+    </div>
+  </footer>
+
+  <div id="popupContainer" class="popup-container"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
