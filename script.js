@@ -211,31 +211,134 @@ const LOADING_TROLL = [
 })();
 
 /* ============================================================
-   HERO BTN + TOMBOL KABUR
+   HERO BTN + TOMBOL KABUR (Desktop + Android)
    ============================================================ */
 (function initHeroBtn() {
   const btn = document.getElementById('btnMasukHero');
   if (!btn) return;
+
   let kabur = 0;
+  const MAKS_KABUR = 5;        // kabur 5x dulu
+  const klikKe = MAKS_KABUR + 1; // klik ke-6 baru bisa masuk
+  const isTouchDevice = window.matchMedia('(hover: none)').matches;
+  let sudahBisaMasuk = false;
 
-  btn.addEventListener('mouseover', () => {
-    kabur++;
-    if (kabur < 5) {
-      const x = (Math.random() - 0.5) * 300;
-      const y = (Math.random() - 0.5) * 150;
-      btn.style.transform = `translate(${x}px, ${y}px)`;
-      btn.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
-    } else {
-      btn.style.transform = 'translate(0, 0)';
-      const text = btn.querySelector('.btn-hero-text');
-      if (text) text.textContent = 'Yaudah klik aja 🥺';
-    }
-  });
+  // Fungsi kabur
+  function kaburSekarang() {
+    const x = (Math.random() - 0.5) * 300;
+    const y = (Math.random() - 0.5) * 150;
+    btn.style.transition = 'transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+  }
 
-  btn.addEventListener('click', () => {
+  // Fungsi reset posisi
+  function balikPosisi() {
+    btn.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+    btn.style.transform = 'translate(0, 0)';
+  }
+
+  // Fungsi ubah text akhir
+  function ubahTextAkhir() {
+    const text = btn.querySelector('.btn-hero-text');
+    if (text) text.textContent = 'Yaudah klik aja 🥺';
+  }
+
+  // Notif tiap beberapa kabur
+  function notifKabur(ke) {
+    if (ke === 1) tampilkanNotif('Eh, mau kemana? 😏');
+    else if (ke === 3) tampilkanNotif('Sabar dong, mas belum selesai 😌');
+    else if (ke === 5) tampilkanNotif('Yaudah, sekali lagi. Janji 😇');
+  }
+
+  // Masuk ke section wonyoung
+  function masukKeWebsite() {
+    sudahBisaMasuk = true;
+    balikPosisi();
+    ubahTextAkhir();
     const target = document.getElementById('wonyoung');
     if (target) target.scrollIntoView({ behavior: 'smooth' });
-  });
+  }
+
+  /* ------------------------------------------------------------
+     DESKTOP: pakai mouseover (kabur tiap hover) + click (masuk)
+     ------------------------------------------------------------ */
+  if (!isTouchDevice) {
+    btn.addEventListener('mouseover', () => {
+      if (sudahBisaMasuk) return;
+      if (kabur < MAKS_KABUR) {
+        kabur++;
+        kaburSekarang();
+        notifKabur(kabur);
+
+        if (kabur >= MAKS_KABUR) {
+          // Setelah 5x kabur → reset posisi + ubah text
+          setTimeout(() => {
+            balikPosisi();
+            ubahTextAkhir();
+          }, 400);
+        }
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      if (sudahBisaMasuk) return;
+      // Klik di desktop = masuk (karena hover udah handle kabur)
+      masukKeWebsite();
+    });
+  }
+
+  /* ------------------------------------------------------------
+     ANDROID / TOUCH DEVICE: pakai click
+     Tap 1-5 = kabur, Tap 6 = masuk
+     ------------------------------------------------------------ */
+  else {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (sudahBisaMasuk) {
+        // Kalau udah bisa masuk, langsung scroll
+        const target = document.getElementById('wonyoung');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      kabur++;
+
+      if (kabur <= MAKS_KABUR) {
+        // Masih kabur
+        kaburSekarang();
+        notifKabur(kabur);
+
+        // Setelah kabur ke-5 → balik posisi + ubah text
+        if (kabur === MAKS_KABUR) {
+          setTimeout(() => {
+            balikPosisi();
+            ubahTextAkhir();
+          }, 400);
+        }
+        return;
+      }
+
+      // Kabur ke-6 (klik ke-6) → baru bisa masuk
+      masukKeWebsite();
+    });
+
+    // Efek visual saat tap
+    btn.addEventListener('touchstart', () => {
+      if (!sudahBisaMasuk) {
+        btn.style.transition = 'transform 0.1s ease';
+        btn.style.transform += ' scale(0.96)';
+      }
+    }, { passive: true });
+  }
+
+  /* ------------------------------------------------------------
+     Biar tombol tetap bisa di-tap walau posisinya pindah-pindah
+     ------------------------------------------------------------ */
+  btn.style.cursor = 'pointer';
+  btn.style.position = 'relative';
+  btn.style.zIndex = '10';
 })();
 
 /* ============================================================
